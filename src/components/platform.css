@@ -1,0 +1,19 @@
+.left {
+    height: 50%;
+    position: fixed;
+    z-index: 99;
+    bottom: 30%;
+    left: 0;
+    right: 55%;
+    border: 5px solid #000;
+}
+
+.right {
+    height: 50%;
+    position: fixed;
+    z-index: 99;
+    bottom: 30%;
+    left: 55%;
+    right: 0;
+    border: 5px solid #000;
+}
