@@ -3,7 +3,6 @@ import './platform.css'
 
 
 function Platform(props) {
-    console.log(props)
     return (
         <div>
             <div className="left">
