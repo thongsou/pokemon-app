@@ -1,12 +1,12 @@
 import './App.css';
-import Controller from './components/controller';
-
+import Homepage from './components/homepage';
+import {Link} from 'react-router-dom'
 
 function App() {
 
   return (
     <div className="App">
-      <Controller />
+      <Homepage />
     </div>
   );
 }

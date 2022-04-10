@@ -2,12 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import Home from "./components/homepage";
+import Selection from './components/selectionpage';
+import Battle from './components/battleground';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/selection" element={<Selection />} />
+      <Route path="/battle" element={<Battle />} />
+      <Route path="*" element={<Navigate to="/" replace />}/>
+    </Routes>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

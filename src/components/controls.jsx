@@ -1,4 +1,4 @@
-import './controls.css';
+import '../css/controls.css';
 import Popup from 'reactjs-popup'
 import Imager from './imager';
 import { useState } from 'react';
