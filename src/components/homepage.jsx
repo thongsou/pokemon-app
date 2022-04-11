@@ -3,7 +3,7 @@ import '../css/homepage.css'
 import logo from '../images/logo.png'
 import pokemonbattlesimulator from '../images/pokemonbattlesimulator.png'
 import Imager from "./imager";
-import {Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 
 function HomePage() {

@@ -59,7 +59,8 @@ import PikaLeftTackle from '../images/pikachu_left_tackle.gif'
 import PikaLeftTailWhip from '../images/pikachu_left_tailwhip.webp'
 import PikaLeftThunder from '../images/pikachu_left_thunder.webp'
 import PikaLeftStance from '../images/pikachu_left.gif'
-import {Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import Header from "./header";
 
 
 function SelectionPage() {
@@ -71,7 +72,7 @@ function SelectionPage() {
     let totalPokemons = ["Charizard", "Aerodactyl", "Blastoise", "Gengar", "Lucario", "Pikachu"]
 
     useEffect(() => {
-        if (myPicks.length == 3) {
+        if (myPicks.length === 3) {
             for (let i = 0; i < myPicks.length; i++) {
                 let pokemon = myPicks[i];
                 let index = totalPokemons.indexOf(pokemon)
@@ -83,7 +84,7 @@ function SelectionPage() {
                         myPokemons = [...myPokemons, new Pokemon("Charizard", 500, CharLeftStance, [
                             ['Scratch', ScratchAudio, CharLeftScratch, 75],
                             ['Roar', RoarAudio, CharLeftRoar, 100],
-                            ['TailWhip', TailWhipAudio, CharLeftTailWhip, 120]
+                            ['Tail Whip', TailWhipAudio, CharLeftTailWhip, 120]
                         ])];
                         break;
                     case "Aerodactyl":
@@ -96,7 +97,7 @@ function SelectionPage() {
                         myPokemons = [...myPokemons, new Pokemon("Blastoise", 400, BlastLeftStance, [
                             ['Stomp', StompAudio, BlastLeftStomp, 90],
                             ['Roar', RoarAudio, BlastLeftRoar, 100],
-                            ['Watergun', WaterGunAudio, BlastLeftWatergun, 150]
+                            ['Water Gun', WaterGunAudio, BlastLeftWatergun, 150]
                         ])];
                         break;
                     case "Gengar":
@@ -109,14 +110,14 @@ function SelectionPage() {
                         myPokemons = [...myPokemons, new Pokemon("Lucario", 350, LucarioLeftStance, [
                             ['Punch', PunchAudio, LucarioLeftPunch, 110],
                             ['Jab', JabAudio, LucarioLeftJab, 110],
-                            ['ShadowBall', ShadowBallAudio, LucarioLeftShadowBall, 140]
+                            ['Shadow Ball', ShadowBallAudio, LucarioLeftShadowBall, 140]
                         ])];
                         break;
                     case "Pikachu":
                         myPokemons = [...myPokemons, new Pokemon("Pikachu", 350, PikaLeftStance, [
                             ['Tackle', TackleAudio, PikaLeftTackle, 100],
                             ['Thunder', ThunderAudio, PikaLeftThunder, 120],
-                            ['TailWhip', TailWhipAudio, PikaLeftTailWhip, 90]
+                            ['Tail Whip', TailWhipAudio, PikaLeftTailWhip, 90]
                         ])];
                         break;
                 }
@@ -129,7 +130,7 @@ function SelectionPage() {
                         enemyPokemons = [...enemyPokemons, new Pokemon("Charizard", 500, CharRightStance, [
                             ['Scratch', ScratchAudio, CharRightScratch, 75],
                             ['Roar', RoarAudio, CharRightRoar, 100],
-                            ['TailWhip', TailWhipAudio, CharRightTailWhip, 120]
+                            ['Tail Whip', TailWhipAudio, CharRightTailWhip, 120]
                         ])];
                         break;
                     case "Aerodactyl":
@@ -142,7 +143,7 @@ function SelectionPage() {
                         enemyPokemons = [...enemyPokemons, new Pokemon("Blastoise", 400, BlastRightStance, [
                             ['Stomp', StompAudio, BlastRightStomp, 90],
                             ['Roar', RoarAudio, BlastRightRoar, 100],
-                            ['Watergun', WaterGunAudio, BlastRightWatergun, 150]
+                            ['Water Gun', WaterGunAudio, BlastRightWatergun, 150]
                         ])];
                         break;
                     case "Gengar":
@@ -155,14 +156,14 @@ function SelectionPage() {
                         enemyPokemons = [...enemyPokemons, new Pokemon("Lucario", 350, LucarioRightStance, [
                             ['Punch', PunchAudio, LucarioRightPunch, 110],
                             ['Jab', JabAudio, LucarioRightJab, 110],
-                            ['ShadowBall', ShadowBallAudio, LucarioRightShadowBall, 140]
+                            ['Shadow Ball', ShadowBallAudio, LucarioRightShadowBall, 140]
                         ])];
                         break;
                     case "Pikachu":
                         enemyPokemons = [...enemyPokemons, new Pokemon("Pikachu", 350, PikaRightStance, [
                             ['Tackle', TackleAudio, PikaRightTackle, 100],
                             ['Thunder', ThunderAudio, PikaRightThunder, 120],
-                            ['TailWhip', TailWhipAudio, PikaRightTailWhip, 90]
+                            ['Tail Whip', TailWhipAudio, PikaRightTailWhip, 90]
                         ])];
                         break;
                 }
@@ -181,6 +182,7 @@ function SelectionPage() {
 
     return (
         <div>
+            <Header />
             <div>Welcome {state}</div>
             <p>Please pick 3 Pokemons [No Duplicates]</p>
             <table>
