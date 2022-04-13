@@ -120,6 +120,8 @@ function SelectionPage() {
                             ['Tail Whip', TailWhipAudio, PikaLeftTailWhip, 90]
                         ])];
                         break;
+                    default:
+                        break;
                 }
             }
 

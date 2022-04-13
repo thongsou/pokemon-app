@@ -1,7 +1,5 @@
 import '../css/controls.css';
-import Popup from 'reactjs-popup'
-import Imager from './imager';
-import { useState } from 'react';
+
 
 function Controls(props) {
     let count = 0;

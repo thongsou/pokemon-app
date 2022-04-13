@@ -62,7 +62,7 @@ function Platform(props) {
             }
         }
         
-    }, [playerDeath, enemyDeath, playerTurn])
+    }, [playerDeath, enemyDeath, playerTurn, enemyPokemons, playerPokemons])
 
     return (
         <div>
@@ -80,12 +80,14 @@ function Platform(props) {
                         setEnemyAttackGif(enemyAtkGif)
                         setEnemyAttackPoints(enemyAtkPoints)
                         setPlayerActivePokemonHP(((playerActivePokemonHP - enemyAtkPoints) <= 0) ? 0 : (playerActivePokemonHP - enemyAtkPoints))
-                        if ((playerActivePokemonHP - enemyAtkPoints) <= 0)
+                        if ((playerActivePokemonHP - enemyAtkPoints) <= 0) 
                             setPlayerDeath(true)
                         setEnemyModal(true) 
                     }
-                    else 
+                    else {
                         setEnemyDeath(false)
+                        setPlayerTurn(true)
+                    }
                           
                 }}
                 closeOnDocumentClick
