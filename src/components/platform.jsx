@@ -7,12 +7,12 @@ import Popup from 'reactjs-popup'
 
 
 function Platform(props) {
-    let playerPokemons = props.player.pokemons
-    let enemyPokemons = props.enemy.pokemons
-    const [playerActivePokemon, setPlayerActivePokemon] = useState(props.player.pokemons[0])
-    const [enemyActivePokemon, setEnemyActivePokemon] = useState(props.enemy.pokemons[0])
-    const [playerActivePokemonHP, setPlayerActivePokemonHP] = useState(props.player.pokemons[0].hp)
-    const [enemyActivePokemonHP, setEnemyActivePokemonHP] = useState(props.enemy.pokemons[0].hp)
+    let playerPokemons = props.player.pokemons.current
+    let enemyPokemons = props.enemy.pokemons.current
+    const [playerActivePokemon, setPlayerActivePokemon] = useState(props.player.pokemons.current[0])
+    const [enemyActivePokemon, setEnemyActivePokemon] = useState(props.enemy.pokemons.current[0])
+    const [playerActivePokemonHP, setPlayerActivePokemonHP] = useState(props.player.pokemons.current[0].hp)
+    const [enemyActivePokemonHP, setEnemyActivePokemonHP] = useState(props.enemy.pokemons.current[0].hp)
     const [playerTurn, setPlayerTurn] = useState(true)
     const [attackAudio, setAttackAudo] = useState()
     const [attackGif, setAttackGif] = useState()

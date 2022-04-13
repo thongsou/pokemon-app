@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import CharRightStance from '../images/charizard_right.gif';
 import AeroRightStance from '../images/aerodactyl_right.webp';
@@ -67,8 +67,8 @@ function SelectionPage() {
     const navigate = useNavigate();
     const {state} = useLocation();
     const [myPicks, setMyPicks] = useState([])
-    let myPokemons = []
-    let enemyPokemons = []
+    var myPokemons = useRef([])
+    var enemyPokemons = useRef([])
     let totalPokemons = ["Charizard", "Aerodactyl", "Blastoise", "Gengar", "Lucario", "Pikachu"]
 
     useEffect(() => {
@@ -81,40 +81,40 @@ function SelectionPage() {
                 }
                 switch (pokemon) {
                     case "Charizard":
-                        myPokemons = [...myPokemons, new Pokemon("Charizard", 500, CharLeftStance, [
+                        myPokemons.current = [...myPokemons.current, new Pokemon("Charizard", 500, CharLeftStance, [
                             ['Scratch', ScratchAudio, CharLeftScratch, 75],
                             ['Roar', RoarAudio, CharLeftRoar, 100],
                             ['Tail Whip', TailWhipAudio, CharLeftTailWhip, 120]
                         ])];
                         break;
                     case "Aerodactyl":
-                        myPokemons = [...myPokemons, new Pokemon("Aerodactyl", 300, AerodactylLeftStance, [
+                        myPokemons.current = [...myPokemons.current, new Pokemon("Aerodactyl", 300, AerodactylLeftStance, [
                             ['Bite', BiteAudio, AerodactylLeftBite, 100],
                             ['Roar', RoarAudio, AerodactylLeftRoar, 90],
                         ])];
                         break;
                     case "Blastoise":
-                        myPokemons = [...myPokemons, new Pokemon("Blastoise", 400, BlastLeftStance, [
+                        myPokemons.current = [...myPokemons.current, new Pokemon("Blastoise", 400, BlastLeftStance, [
                             ['Stomp', StompAudio, BlastLeftStomp, 90],
                             ['Roar', RoarAudio, BlastLeftRoar, 100],
                             ['Water Gun', WaterGunAudio, BlastLeftWatergun, 150]
                         ])];
                         break;
                     case "Gengar":
-                        myPokemons = [...myPokemons, new Pokemon("Gengar", 300, GengarLeftStance, [
+                        myPokemons.current = [...myPokemons.current, new Pokemon("Gengar", 300, GengarLeftStance, [
                             ['Scratch', ScratchAudio, GengarLeftScratch, 120],
                             ['Roar', RoarAudio, GengarLeftRoar, 100],
                         ])];
                         break;
                     case "Lucario":
-                        myPokemons = [...myPokemons, new Pokemon("Lucario", 350, LucarioLeftStance, [
+                        myPokemons.current = [...myPokemons.current, new Pokemon("Lucario", 350, LucarioLeftStance, [
                             ['Punch', PunchAudio, LucarioLeftPunch, 110],
                             ['Jab', JabAudio, LucarioLeftJab, 110],
                             ['Shadow Ball', ShadowBallAudio, LucarioLeftShadowBall, 140]
                         ])];
                         break;
                     case "Pikachu":
-                        myPokemons = [...myPokemons, new Pokemon("Pikachu", 350, PikaLeftStance, [
+                        myPokemons.current = [...myPokemons.current, new Pokemon("Pikachu", 350, PikaLeftStance, [
                             ['Tackle', TackleAudio, PikaLeftTackle, 100],
                             ['Thunder', ThunderAudio, PikaLeftThunder, 120],
                             ['Tail Whip', TailWhipAudio, PikaLeftTailWhip, 90]
@@ -129,40 +129,40 @@ function SelectionPage() {
                 let pokemon = totalPokemons[i];
                 switch (pokemon) {
                     case "Charizard":
-                        enemyPokemons = [...enemyPokemons, new Pokemon("Charizard", 500, CharRightStance, [
+                        enemyPokemons.current = [...enemyPokemons.current, new Pokemon("Charizard", 500, CharRightStance, [
                             ['Scratch', ScratchAudio, CharRightScratch, 75],
                             ['Roar', RoarAudio, CharRightRoar, 100],
                             ['Tail Whip', TailWhipAudio, CharRightTailWhip, 120]
                         ])];
                         break;
                     case "Aerodactyl":
-                        enemyPokemons = [...enemyPokemons, new Pokemon("Aerodactyl", 300, AerodactylRightStance, [
+                        enemyPokemons.current = [...enemyPokemons.current, new Pokemon("Aerodactyl", 300, AerodactylRightStance, [
                             ['Bite', BiteAudio, AerodactylRightBite, 100],
                             ['Roar', RoarAudio, AerodactylRightRoar, 90],
                         ])];
                         break;
                     case "Blastoise":
-                        enemyPokemons = [...enemyPokemons, new Pokemon("Blastoise", 400, BlastRightStance, [
+                        enemyPokemons.current = [...enemyPokemons.current, new Pokemon("Blastoise", 400, BlastRightStance, [
                             ['Stomp', StompAudio, BlastRightStomp, 90],
                             ['Roar', RoarAudio, BlastRightRoar, 100],
                             ['Water Gun', WaterGunAudio, BlastRightWatergun, 150]
                         ])];
                         break;
                     case "Gengar":
-                        enemyPokemons = [...enemyPokemons, new Pokemon("Gengar", 300, GengarRightStance, [
+                        enemyPokemons.current = [...enemyPokemons.current, new Pokemon("Gengar", 300, GengarRightStance, [
                             ['Scratch', ScratchAudio, GengarRightScratch, 120],
                             ['Roar', RoarAudio, GengarRightRoar, 100],
                         ])];
                         break;
                     case "Lucario":
-                        enemyPokemons = [...enemyPokemons, new Pokemon("Lucario", 350, LucarioRightStance, [
+                        enemyPokemons.current = [...enemyPokemons.current, new Pokemon("Lucario", 350, LucarioRightStance, [
                             ['Punch', PunchAudio, LucarioRightPunch, 110],
                             ['Jab', JabAudio, LucarioRightJab, 110],
                             ['Shadow Ball', ShadowBallAudio, LucarioRightShadowBall, 140]
                         ])];
                         break;
                     case "Pikachu":
-                        enemyPokemons = [...enemyPokemons, new Pokemon("Pikachu", 350, PikaRightStance, [
+                        enemyPokemons.current = [...enemyPokemons.current, new Pokemon("Pikachu", 350, PikaRightStance, [
                             ['Tackle', TackleAudio, PikaRightTackle, 100],
                             ['Thunder', ThunderAudio, PikaRightThunder, 120],
                             ['Tail Whip', TailWhipAudio, PikaRightTailWhip, 90]
