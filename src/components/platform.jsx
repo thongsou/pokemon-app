@@ -16,39 +16,35 @@ function Platform(props) {
     const [playerTurn, setPlayerTurn] = useState(true)
     const [attackAudio, setAttackAudo] = useState()
     const [attackGif, setAttackGif] = useState()
+    const [attackPoints, setAttackPoints] = useState()
     const [enemyAttackAudio, setEnemyAttackAudo] = useState()
     const [enemyAttackGif, setEnemyAttackGif] = useState()
+    const [enemyAttackPoints, setEnemyAttackPoints] = useState()
     const [modal, setModal] = useState(false)
+    const [enemyModal, setEnemyModal] = useState(false)
+    const [playerDeath, setPlayerDeath] = useState(false)
+    const [enemyDeath, setEnemyDeath] = useState(false)
 
     const handleAttack = (event) => {
         if (playerTurn) {
             const count = event.target.name
-            const attackAudio = playerActivePokemon.moves[count][1]
-            const attackGif = playerActivePokemon.moves[count][2]
-            const attackPoints = playerActivePokemon.moves[count][3]
-            setAttackAudo(attackAudio)
-            setAttackGif(attackGif)
-            setEnemyActivePokemonHP(enemyActivePokemonHP - attackPoints)
+            const atkAudio = playerActivePokemon.moves[count][1]
+            const atkGif = playerActivePokemon.moves[count][2]
+            const atkPoints = playerActivePokemon.moves[count][3]
+            setAttackAudo(atkAudio)
+            setAttackGif(atkGif)
+            setAttackPoints(atkPoints)
+            setEnemyActivePokemonHP(((enemyActivePokemonHP - atkPoints) <= 0) ? 0 : (enemyActivePokemonHP - atkPoints))
+            if (((enemyActivePokemonHP - atkPoints) <= 0))
+                setEnemyDeath(true)
         }
         setPlayerTurn(false)
         setModal(true)
-
-        let random = Math.floor(Math.random() * (enemyActivePokemon.moves.length-1 - 0 + 1) + 0)
-            const enemyAttackAudio = enemyActivePokemon.moves[random][1]
-            const enemyAttackGif = enemyActivePokemon.moves[random][2]
-            const enemyAttackPoints = enemyActivePokemon.moves[random][3]
-            setEnemyAttackAudo(enemyAttackAudio)
-            setEnemyAttackGif(enemyAttackGif)
-            setPlayerActivePokemonHP(playerActivePokemonHP - enemyAttackPoints)
-            setModal(true)
-            setPlayerTurn(true)
-        
-
     }
 
 
     useEffect(() => {
-        if (playerActivePokemonHP <= 0) {
+        if (playerDeath) {
             playerPokemons.shift()
             if (playerPokemons.length === 0) {
                 alert("Sorry you lost")
@@ -56,7 +52,7 @@ function Platform(props) {
                 setPlayerActivePokemon(playerPokemons[0])
                 setPlayerActivePokemonHP(playerPokemons[0].hp)
             }
-        } else if (enemyActivePokemonHP <= 0) {
+        } else if (enemyDeath) {
             enemyPokemons.shift()
             if (enemyPokemons.length === 0) {
                 alert("Congrats")
@@ -64,19 +60,9 @@ function Platform(props) {
                 setEnemyActivePokemon(enemyPokemons[0])
                 setEnemyActivePokemonHP(enemyPokemons[0].hp)
             }
-        } else if (!playerTurn) {
-            let random = Math.floor(Math.random() * (enemyActivePokemon.moves.length-1 - 0 + 1) + 0)
-            const enemyAttackAudio = enemyActivePokemon.moves[random][1]
-            const enemyAttackGif = enemyActivePokemon.moves[random][2]
-            const enemyAttackPoints = enemyActivePokemon.moves[random][3]
-            setEnemyAttackAudo(enemyAttackAudio)
-            setEnemyAttackGif(enemyAttackGif)
-            setPlayerActivePokemonHP(playerActivePokemonHP - enemyAttackPoints)
-            setModal(true)
-            setPlayerTurn(true)
-
         }
-    }, [playerActivePokemon.hp, enemyActivePokemon.hp, playerTurn, modal])
+        
+    }, [playerDeath, enemyDeath, playerTurn])
 
     return (
         <div>
@@ -85,17 +71,73 @@ function Platform(props) {
                 open={modal} 
                 onClose={() => {
                     setModal(false)
-                    console.log(modal)
-                    
-                    }}
+                    if (!enemyDeath) {
+                        let random = Math.floor(Math.random() * (enemyActivePokemon.moves.length-1 - 0 + 1) + 0)
+                        const enemyAtkAudio = enemyActivePokemon.moves[random][1]
+                        const enemyAtkGif = enemyActivePokemon.moves[random][2]
+                        const enemyAtkPoints = enemyActivePokemon.moves[random][3]
+                        setEnemyAttackAudo(enemyAtkAudio)
+                        setEnemyAttackGif(enemyAtkGif)
+                        setEnemyAttackPoints(enemyAtkPoints)
+                        setPlayerActivePokemonHP(((playerActivePokemonHP - enemyAtkPoints) <= 0) ? 0 : (playerActivePokemonHP - enemyAtkPoints))
+                        if ((playerActivePokemonHP - enemyAtkPoints) <= 0)
+                            setPlayerDeath(true)
+                        setEnemyModal(true) 
+                    }
+                    else 
+                        setEnemyDeath(false)
+                          
+                }}
                 closeOnDocumentClick
+                closeOnEscape
                 className='popup-content'
             >
                 <div className='modal'>
-                    <Imager src={playerTurn ? attackGif : enemyAttackGif} />
-                    <audio type="audio/mp3" autoPlay={true} src={playerTurn ? attackAudio : enemyAttackAudio} />
+                    {enemyDeath ? 
+                        <div>
+                            <h2>{playerActivePokemon.name} did {attackPoints} points of damage and knock the opponent down!</h2>
+                            <h2>{props.enemy.name} summons {enemyActivePokemon.name}</h2>   
+                        </div> 
+                        :
+                        <div>
+                            <h2>{playerActivePokemon.name} did {attackPoints} points of damage to {enemyActivePokemon.name}!</h2>
+                            <h2>{enemyActivePokemon.name} has {enemyActivePokemonHP} HP left</h2>   
+                        </div> 
+                    }
+                    
+                    <Imager src={attackGif} />
+                    <audio type="audio/mp3" autoPlay={true} src={attackAudio} />
                 </div>
             </Popup>
+            <Popup 
+                modal={true} 
+                open={enemyModal} 
+                onClose={() => {
+                    setEnemyModal(false)
+                    setPlayerDeath(false)
+                    setPlayerTurn(true)   
+                }}
+                closeOnDocumentClick
+                closeOnEscape
+                className='popup-content'
+            >
+                <div className='modal'>
+                    {playerDeath ? 
+                        <div>
+                            <h2>{enemyActivePokemon.name} did {enemyAttackPoints} points of damage and and knocked your pokemon down!</h2>
+                            <h2>You summon {playerActivePokemon.name}</h2>
+                        </div> 
+                        :
+                        <div>
+                            <h2>{enemyActivePokemon.name} did {enemyAttackPoints} points of damage to {playerActivePokemon.name}!</h2>
+                            <h2>{playerActivePokemon.name} has {playerActivePokemonHP} left</h2>     
+                        </div> 
+                    }
+                    
+                    <Imager src={enemyAttackGif} />
+                    <audio type="audio/mp3" autoPlay={true} src={enemyAttackAudio} />
+                </div>
+            </Popup>  
             <Controls player={props.player} handleAttack={handleAttack}/>
             <div className="left">
                 <h1>{props.player.name.state}</h1>
