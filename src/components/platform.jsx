@@ -3,10 +3,13 @@ import '../css/platform.css'
 import Controls from './controls';
 import { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup'
+import {navigate, useNavigate} from 'react-router-dom';
+
 
 
 
 function Platform(props) {
+    const navigate = useNavigate();
     let playerPokemons = props.player.pokemons.current
     let enemyPokemons = props.enemy.pokemons.current
     const [playerActivePokemon, setPlayerActivePokemon] = useState(props.player.pokemons.current[0])
@@ -47,7 +50,7 @@ function Platform(props) {
         if (playerDeath) {
             playerPokemons.shift()
             if (playerPokemons.length === 0) {
-                alert("Sorry you lost")
+                navigate('/ending', {state: false, replace: true})
             } else {
                 setPlayerActivePokemon(playerPokemons[0])
                 setPlayerActivePokemonHP(playerPokemons[0].hp)
@@ -55,7 +58,7 @@ function Platform(props) {
         } else if (enemyDeath) {
             enemyPokemons.shift()
             if (enemyPokemons.length === 0) {
-                alert("Congrats")
+                navigate('/ending', {state: true, replace: true})
             } else {
                 setEnemyActivePokemon(enemyPokemons[0])
                 setEnemyActivePokemonHP(enemyPokemons[0].hp)
@@ -81,7 +84,7 @@ function Platform(props) {
                         setEnemyAttackPoints(enemyAtkPoints)
                         setPlayerActivePokemonHP(((playerActivePokemonHP - enemyAtkPoints) <= 0) ? 0 : (playerActivePokemonHP - enemyAtkPoints))
                         if ((playerActivePokemonHP - enemyAtkPoints) <= 0) 
-                            setPlayerDeath(true)
+                            setPlayerDeath(true)                            
                         setEnemyModal(true) 
                     }
                     else {

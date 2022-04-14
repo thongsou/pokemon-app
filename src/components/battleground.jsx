@@ -9,7 +9,7 @@ function Battleground(props) {
     return (
         <div>
             <Header />
-            <audio controls type="audio/mp3" autoPlay={true} loop={true} src={battle} />
+            <audio type="audio/mp3" autoPlay={true} loop={true} src={battle} />
             <Platform player={state.player} enemy={state.enemy} />
         </div>
     );

@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import Home from "./components/homepage";
 import Selection from './components/selectionpage';
 import Battle from './components/battleground';
+import Ending from './components/ending';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -13,6 +14,7 @@ ReactDOM.render(
       <Route path="/" element={<Home />} />
       <Route path="/selection" element={<Selection />} />
       <Route path="/battle" element={<Battle />} />
+      <Route path="/ending" element={<Ending />} />
       <Route path="*" element={<Navigate to="/" replace />}/>
     </Routes>
   </BrowserRouter>,

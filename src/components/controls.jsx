@@ -6,7 +6,7 @@ function Controls(props) {
     return (
         <div className="container">
            {props.player.pokemons.current[0].moves.map((move) => {
-               return <td><button name={count++} onClick={props.handleAttack}>{move[0]}</button></td>
+               return <tr><button name={count++} className="buttons" onClick={props.handleAttack}>{move[0]}</button></tr>
            })}
         </div>
     );

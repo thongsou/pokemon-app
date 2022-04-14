@@ -61,23 +61,26 @@ import PikaLeftThunder from '../images/pikachu_left_thunder.webp'
 import PikaLeftStance from '../images/pikachu_left.gif'
 import {useNavigate} from 'react-router-dom';
 import Header from "./header";
+import sunsetback from '../images/sunsetbackground.webp'
+import selectionAudio from '../audio/Selection.mp3'
 
 
 function SelectionPage() {
     const navigate = useNavigate();
     const {state} = useLocation();
     const [myPicks, setMyPicks] = useState([])
+    const [counter, setCounter] = useState("first");
     var myPokemons = useRef([])
     var enemyPokemons = useRef([])
-    let totalPokemons = ["Charizard", "Aerodactyl", "Blastoise", "Gengar", "Lucario", "Pikachu"]
+    let totalPokemons = useRef(["Charizard", "Aerodactyl", "Blastoise", "Gengar", "Lucario", "Pikachu"]);
 
     useEffect(() => {
         if (myPicks.length === 3) {
             for (let i = 0; i < myPicks.length; i++) {
                 let pokemon = myPicks[i];
-                let index = totalPokemons.indexOf(pokemon)
+                let index = totalPokemons.current.indexOf(pokemon)
                 if (index !== -1) {
-                    totalPokemons.splice(index, 1)
+                    totalPokemons.current.splice(index, 1)
                 }
                 switch (pokemon) {
                     case "Charizard":
@@ -125,8 +128,8 @@ function SelectionPage() {
                 }
             }
 
-            for (let i = 0; i < totalPokemons.length; i++) {
-                let pokemon = totalPokemons[i];
+            for (let i = 0; i < totalPokemons.current.length; i++) {
+                let pokemon = totalPokemons.current[i];
                 switch (pokemon) {
                     case "Charizard":
                         enemyPokemons.current = [...enemyPokemons.current, new Pokemon("Charizard", 500, CharRightStance, [
@@ -168,25 +171,31 @@ function SelectionPage() {
                             ['Tail Whip', TailWhipAudio, PikaRightTailWhip, 90]
                         ])];
                         break;
+                    default:
+                        break;
                 }
             }
             const player = new Player({state}, myPokemons, true)
-            console.log(player)
             const enemy = new Player("Red", enemyPokemons, false)
-            console.log(enemy)
 
             navigate('/battle', {state: {player, enemy}, replace: true})
         }
-    }, [myPicks])
+        if (myPicks.length === 1) 
+            setCounter("second")
+        else if (myPicks.length === 2)
+            setCounter("third")
+    }, [myPicks, navigate, state, totalPokemons])
 
 
 
 
     return (
-        <div>
+        <div style={{backgroundImage: `url(${sunsetback})`}}>
+            <audio type="audio/mp3" autoPlay={true} loop={true} src={selectionAudio} />
             <Header />
-            <div>Welcome {state}</div>
-            <p>Please pick 3 Pokemons [No Duplicates]</p>
+            <h1>Welcome {state}</h1>
+            <h2>Please pick your {counter} Pokemon [No Duplicates]</h2>
+
             <table>
                 <tr>
                     <td>
