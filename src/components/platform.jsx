@@ -3,7 +3,7 @@ import '../css/platform.css'
 import Controls from './controls';
 import { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup'
-import {navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 
 
@@ -65,7 +65,7 @@ function Platform(props) {
             }
         }
         
-    }, [playerDeath, enemyDeath, playerTurn, enemyPokemons, playerPokemons])
+    }, [playerDeath, enemyDeath, playerTurn, enemyPokemons, playerPokemons, navigate])
 
     return (
         <div>
